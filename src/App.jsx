@@ -3,30 +3,56 @@ import React, { useState } from "react";
 import "./App.css";
 
 function App() {
-  const [color, setColor] = useState("Red");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [course, setCourse] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setSubmitted(true);
+  }
 
   return (
     <div className="container">
-      <h2>Color Changer App</h2>
+      <h2>Student Registration Form</h2>
 
-      <button onClick={() => setColor("Red")}>
-        Red
-      </button>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Student Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
 
-      <button onClick={() => setColor("Green")}>
-        Green
-      </button>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
 
-      <button onClick={() => setColor("Blue")}>
-        Blue
-      </button>
+        <input
+          type="text"
+          placeholder="Course"
+          value={course}
+          onChange={(e) => setCourse(e.target.value)}
+          required
+        />
 
-      <div
-        className="box"
-        style={{ backgroundColor: color }}
-      >
-        Selected Color: {color}
-      </div>
+        <button type="submit">Submit</button>
+      </form>
+
+      {submitted && (
+        <div className="details">
+          <h3>Student Details</h3>
+          <p>Name: {name}</p>
+          <p>Email: {email}</p>
+          <p>Course: {course}</p>
+        </div>
+      )}
     </div>
   );
 }
